@@ -15,7 +15,7 @@ set SSL_CERT_FILE=E:\Servers\cacert.pem
 
 :: This is the SteamDEV api key required for automatic updates ::
 :: If you do not have one you may obtain your API key from here = http://steamcommunity.com/dev/apikey ::
-set steamkey=04570D2D3555460F37D34117CE2045FE
+set steamkey=Put your API key here
 
 :: This is the required login for SteamCMD to download updates ::
 :: example = login=C0nw0nk Password ::
