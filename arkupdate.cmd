@@ -7,6 +7,8 @@
 ::==============================::
 :: https://github.com/C0nw0nk/SteamCMD-AutoUpdate-Any-Gameserver ::
 
+:: DO NOT EDIT this line
+setlocal enableDelayedExpansion
 
 :: Set Local Execution Directory - Change this to your drive and folder setup
 cd /d E:\Servers
@@ -181,7 +183,7 @@ rem get the running game server process id from our pid file
 set /p texte=< %~n0-pid.txt
 rem echo %texte%
 rem use the process id and check if it is running or not
-setlocal enableDelayedExpansion
+rem setlocal enableDelayedExpansion moved to top of file to take outside of loop
 rem find process id of game server that should be running and if status is not responding or unknown it means the server has crashed
 set "cmd2=tasklist.exe /fi "pid eq %texte%" /fi "status ne running""
 for /F "delims=*" %%p in ('!cmd2! ^| findstr "%texte%" ') do (
@@ -212,7 +214,7 @@ rem get the running game server process id from our pid file
 set /p texte=< %~n0-pid.txt
 rem echo %texte%
 rem use the process id and check if it is running or not
-setlocal enableDelayedExpansion
+rem setlocal enableDelayedExpansion
 set "cmd=tasklist.exe /FI "pid eq %texte%""
 for /F "delims=*" %%p in ('!cmd! ^| findstr "%texte%" ') do (
 rem echo pid of game server running and found so kill / end the process %%p
@@ -234,7 +236,7 @@ rem Timeout for patch has expired and now alert that servers are patching.
 call t update "#ARKPatches 7Gamers ARK Servers are shutting down for latest patch, ETA for uptime is 10 minutes from %time%"
 rem Execute shutdown scripts
 set /p texte=< %~n0-pid.txt
-setlocal enableDelayedExpansion
+rem setlocal enableDelayedExpansion
 set "cmd=tasklist.exe /FI "pid eq %texte%""
 for /F "delims=*" %%p in ('!cmd! ^| findstr "%texte%" ') do (goto :console_vbs1)
 :console_vbs1
