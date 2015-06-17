@@ -33,7 +33,8 @@ I told you in the file not to touch anything beyond that point. (Just redownload
 #Known bugs / issues :
 If your game server is to crash you may have to wait for the next automatic update check as defined by the interval so the script checks if the game server is infact running or not. (Current soloution is to keep the update interval to a max of 10-15mins so if your server crashes it is not offline for long) set interval=60 (1 minute)
 
-Maximum setlocal recursion level reached error - this is inhereited from the original code and I'm working on a fix.
+Minor error - If steams servers do not respond in the 'normal' way to the update check the code will still perceive this as a change from previous state, e.g a patch, and will start the update process. This can happen even if something as simple as "Connecting to steam....retrying..success" instead of "Connecting to Steam....success"
+
 
 #How to use :
 Download the dependencies defined above and setup in a directory structure similar to this:
