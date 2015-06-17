@@ -2,9 +2,10 @@
 
 Windows SteamCMD to automaticly update and run ARK servers.
 
-I am sure all of you on windows have been seeking for this for a long time.
-
 This project reworks C0nw0nk's original concept to focus on ARK:Survival Evolved and introduce patch automation and an alert system since that game has no form of RCON access and frequent patches.
+
+About Twitter...
+Obviously since no one uses twitter in normal circumstances as soon as RCON (remote server connection) is available in ARK the code can be adjusted to instead do an admin broadcast directly on the server warning of restarts and we'll ditch dirty twitter. :)
 
 You can find C0nw0nk's project here - https://github.com/C0nw0nk/SteamCMD-AutoUpdate-Any-Gameserver
 
