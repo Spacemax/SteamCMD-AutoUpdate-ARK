@@ -1,0 +1,10 @@
+// autosteam.txt
+// It needs you to login for the game download, probably won't for ded server on 376030
+@ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
+@NoPromptForPassword 1
+login yoursteamusername yoursteampassword
+//for servers which don't need a login
+//login anonymous 
+force_install_dir E:\Servers\ARK
+app_update 346110 validate
+quit
