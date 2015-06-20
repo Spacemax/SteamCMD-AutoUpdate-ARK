@@ -174,12 +174,19 @@ rem echo file doesn't exist so create it and update / install the game server to
 COPY %~n0-latest-version.txt %~n0-current-version.txt
 goto error
 )
-rem file check compare the latest game server version with the current and if they match or miss match
-fc %~n0-latest-version.txt %~n0-current-version.txt >nul
-if errorlevel 1 goto shutdown_server
+rem first extract buildnumber using new file check
+
+for /f "tokens=3 delims=:/" %%a in ('find "change number :" ^< "arkupdate-latest-version.txt" ') do SET "latest=%%a"
+for /f "tokens=3 delims=:/" %%a in ('find "change number :" ^< "arkupdate-current-version.txt" ') do SET "current=%%a"
+SET latest=%latest%
+SET current=%current%
+ECHO Build checked at %time% - Latest build is: %latest% and current build is: %current% 
+IF %latest% NEQ %current% goto shutdown_server
+
 :next
 rem echo file version match with currently installed so do nothing and attempt to start the server if not already running
 rem get the running game server process id from our pid file
+ECHO Server has latest build as of %time% and we'll start the server if it isn't running already and we'll keep checking for new builds
 set /p texte=< %~n0-pid.txt
 rem echo %texte%
 rem use the process id and check if it is running or not
@@ -201,7 +208,8 @@ goto loop
 rem echo pid not found pause so start running the game server and get game server pid
 rem process id in pid file not found or running so lets start the game server to get it running and store the game server pid in the file
 rem first alert that Servers are patched and back online
-call t update "#ARKPatches 7Gamers ARK Servers are online %time%"
+echo Patching completed at %time% now starting Server..
+call t update "ARK Servers are online %time%"
 for /f "tokens=2 delims==; " %%a in (' wmic process call create 'E:\Servers\ARK\ShooterGame\Binaries\Win64\ShooterGameServer.exe "TheIsland?SessionName=7Gamers ARK AU2 TREX?QueryPort=28015?ServerAdminPassword=NotThis?listen"' ^| find "ProcessId" ') do set PID=%%a
 echo %PID% > %~n0-pid.txt
 timeout /t %interval% /NOBREAK
@@ -229,11 +237,12 @@ COPY %~n0-latest-version.txt %~n0-current-version.txt >nul
 goto loop
 pause
 :shutdown_server
+Echo There is a newer build available as of %time% and server will prepare for patch
 rem Tweet that there is an update and then wait 20 minutes.
-call t update "#ARKPatches 7Gamers ARK Servers will restart for a patch 1 hour from now - %time%"
+call t update "ARK Servers will restart for a patch 1 hour from now - %time%"
 timeout /t 3600 /NOBREAK
 rem Timeout for patch has expired and now alert that servers are patching.
-call t update "#ARKPatches 7Gamers ARK Servers are shutting down for latest patch, ETA for uptime is 10 minutes from %time%"
+call t update "ARK Servers are shutting down for latest patch, ETA for uptime is 10 minutes from %time%"
 rem Execute shutdown scripts
 set /p texte=< %~n0-pid.txt
 rem setlocal enableDelayedExpansion
